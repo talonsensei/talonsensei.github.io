@@ -6,6 +6,7 @@ versions = JSON.parse(open('https://pages.github.com/versions.json').read)
 
 gem 'github-pages', group: :jekyll_plugins
 gem 'jekyll-theme-modernist'
+gem 'rb-pygments'
 
 #Various Filter dependancies 
 gem 'github-linguist' # for SyntaxHighlightFilte

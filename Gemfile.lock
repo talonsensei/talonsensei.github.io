@@ -186,6 +186,7 @@ GEM
     rb-fsevent (0.10.1)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rb-pygments (0.1.0)
     rouge (1.11.1)
     ruby-enum (0.7.1)
       i18n
@@ -212,6 +213,7 @@ DEPENDENCIES
   github-linguist
   github-pages
   jekyll-theme-modernist
+  rb-pygments
 
 BUNDLED WITH
    1.15.1
