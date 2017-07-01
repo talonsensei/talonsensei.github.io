@@ -2,4 +2,7 @@ name: "codex.(python)"
 markdown: kramdown
 theme: jekyll-theme-modernist
 
+title: "codex.(python)"
+description: "Python, PostgreSQL, R, sundry computer geek stuff, etc."
+
 permalink: /blog/:year/:month/:day/:title
