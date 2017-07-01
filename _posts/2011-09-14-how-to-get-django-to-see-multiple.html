@@ -1,0 +1,14 @@
+---
+layout: post
+title: How to get Django to see multiple PostgreSQL schemas
+date: '2011-09-14T11:58:00.000-07:00'
+author: Mark Evans
+tags:
+- postgres
+- Django
+modified_time: '2011-09-14T11:58:02.602-07:00'
+blogger_id: tag:blogger.com,1999:blog-8042776731714569314.post-3232005474278652973
+blogger_orig_url: http://codexpython.blogspot.com/2011/09/how-to-get-django-to-see-multiple.html
+---
+
+Took awhile to figure this out, so here goes.<br /><br />First create a PostgreSQL user that will be used by Django to connect to the database. &nbsp;This is the user that will be included in the settings.py file for the database connection section.<br /><br />Log into PostgreSQL as admin/superuser and issue the following command:<br /><br /><b style="background-color: #cccccc;">GRANT USAGE SCHEMA foo TO django_user;</b><br /><b style="background-color: #eeeeee;"><br /></b><br /><span class="Apple-style-span" style="border-collapse: collapse; font-family: Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif; font-size: 14px; line-height: 18px;">(Or GRANT USAGE to any role which has django_user as a (direct or indirect) member.)<br />(Or GRANT ALL ... if that is what you want.)</span><br /><br />The next step is to change the default schema search path. &nbsp;To make a permanent change, do the following:<br /><br /><b style="background-color: #cccccc;">ALTER ROLE django_user SET SEARCH_PATH to "$user",public,your_schema;</b><br /><br />Log out and log back in for the change to take effect. &nbsp;You can test the outcome by doing a <b style="background-color: #cccccc;">\dt</b> and you should see all table from all schemas that the role has been granted access to.<br /><br />You can now run <b style="background-color: #cccccc;">manage.py inspectdb</b> and it will see all tables in all schemas. &nbsp;Don't know yet how it will treat tables with the same name in different schemas, as it is no longer required to prefix the schema name in a query, although it can still be done.

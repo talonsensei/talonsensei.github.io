@@ -1,0 +1,14 @@
+---
+layout: post
+title: Setting up X Windows on Mac
+date: '2011-07-29T12:03:00.000-07:00'
+author: Mark Evans
+tags:
+- X11
+- X-windows
+modified_time: '2011-07-29T12:03:02.274-07:00'
+blogger_id: tag:blogger.com,1999:blog-8042776731714569314.post-1847742113340192133
+blogger_orig_url: http://codexpython.blogspot.com/2011/07/setting-up-x-windows-on-mac.html
+---
+
+For Snow Leopard. <br /><br />First check<span class="Apple-style-span" style="font-family: 'Courier New', Courier, monospace;"><b> /usr/etc/sshd_config</b></span> and make sure that "<span class="Apple-style-span" style="font-family: 'Courier New', Courier, monospace;"><b>X11 Forwarding yes</b></span>" has been set.<br /><br />Then login to remote server with <span class="Apple-style-span" style="font-family: 'Courier New', Courier, monospace;"><b>ssh -X user@remote.server</b></span><br /><br />Start remote desktop (e.g. gnome) with <span class="Apple-style-span" style="font-family: 'Courier New', Courier, monospace;"><b>gnome-session</b></span>

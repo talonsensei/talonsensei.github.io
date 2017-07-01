@@ -1,0 +1,17 @@
+---
+layout: post
+title: How to install mod_wsgi on Mountain Lion
+date: '2013-08-20T10:27:00.000-07:00'
+author: Mark Evans
+tags:
+- Apache
+- Mountain Lion
+- mod_wsgi
+- Homebrew
+- MacOS
+modified_time: '2013-08-20T10:27:38.003-07:00'
+blogger_id: tag:blogger.com,1999:blog-8042776731714569314.post-5539527001631382701
+blogger_orig_url: http://codexpython.blogspot.com/2013/08/how-to-install-modwsgi-on-mountain-lion.html
+---
+
+<span style="background-color: white; color: #666666; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 19px;">There are apparently changes Apple made in XCode between Lion and Mountain Lion that cause the standard install method to fail. The conventional fix that comes up most often in a Google search at the time of this writing is to create a symlink between the new name of a Toolchain folder and the old name that the installer is supposedly looking for, like this&nbsp;</span><br /><span style="background-color: white; color: #666666; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 19px;"><br /></span><span style="background-color: white; color: #666666; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 19px;"><b>sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/ /Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.8.xctoolchain</b>&nbsp;</span><br /><span style="background-color: white; color: #666666; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 19px;"><br /></span><span style="background-color: white; color: #666666; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 19px;">I did this and tried to make mod_wsgi using Homebrew but it throws a cryptic apxs error. Long story short, I eventually compiled mod_wsgi from source myself, but it continued to through various errors, even though things seemed to be configured properly. I went back to a different Mountain Lion machine I had configured earlier using MacPorts. When I did that machine, I had no problems with mod_wsgi or the need for this toolchain symlink. Examining the Portfile for mod_wsgi gives the key. The missing element is adding the <b>--disable-framework</b> flag to the config file. After that, everything works fine.&nbsp;</span><br /><span style="background-color: white; color: #666666; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 19px;"><br /></span><span style="background-color: white; color: #666666; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 19px;">This flag should be added to the Homebrew Formula for mod_wsgi. I have never made a Formula before, but maybe one day I will do it. Below is the Gist showing what I did and how it worked.</span><script src="https://gist.github.com/talonsensei/6284446.js"></script><br /><span style="background-color: white; color: #666666; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 19px;"><br /></span><span style="background-color: white; color: #666666; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 19px;"><br /></span><span style="background-color: white; color: #666666; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 19px;"><br /></span>

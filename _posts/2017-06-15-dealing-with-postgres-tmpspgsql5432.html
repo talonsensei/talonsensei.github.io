@@ -1,0 +1,16 @@
+---
+layout: post
+title: Dealing with Postgres "/tmp/.s.PGSQL.5432" error
+date: '2017-06-15T17:41:00.004-07:00'
+author: Mark Evans
+tags:
+- postgres
+- Homebrew
+- Django
+- MacOS
+modified_time: '2017-06-15T17:41:46.109-07:00'
+blogger_id: tag:blogger.com,1999:blog-8042776731714569314.post-5385221401104487358
+blogger_orig_url: http://codexpython.blogspot.com/2017/06/dealing-with-postgres-tmpspgsql5432.html
+---
+
+I have dealt with this error quite a few times, but so infrequently that I forget the solution. When upgrading or wiping and reinstalling PostgreSQL via Homebrew, sometimes a few things get dropped by the scripts for some reason.<br /><br />Situation: Postgres is running, database has been created, I can log in via psql and interact with the database just fine. Even Django, running via the development runserver, can interact with the database fine. However, when you try to test the production server on Apache, you get the dreaded error:<br /><br /><span style="font-family: Courier New, Courier, monospace;">could not connect to server: No such file or directory</span><br /><span style="font-family: Courier New, Courier, monospace;">&nbsp; &nbsp; Is the server running locally and accepting</span><br /><span style="font-family: Courier New, Courier, monospace;">&nbsp; &nbsp; connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?</span><br /><br />Here is the solution:<br />Quick check to see if /var/pgsql_socket exists:<br /><br /><span style="font-family: Courier New, Courier, monospace;">ls /var/ &nbsp; &nbsp; &nbsp;# nope, nothing here</span><br /><br />So then just make one, per the instructions found&nbsp;<a href="http://fullybaked.co.uk/articles/getting-postgresql-running-on-osx-mountain-lion">here</a><br /><br /><span style="font-family: Courier New, Courier, monospace;">sudo mkdir /var/pgsql_socket/</span><br /><span style="font-family: Courier New, Courier, monospace;">ln -s /private/tmp/.s.PGSQL.5432 /var/pgsql_socket/</span><br /><br />Reload your apache page and voila, it works.<br /><br />System config: OSX 10.12.5 (Sierra), httpd24, postgresql@9.5 (9.5.7), django 1.9.2

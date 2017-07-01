@@ -1,0 +1,14 @@
+---
+layout: post
+title: Convert Postgres column from text to numeric type
+date: '2012-04-30T12:01:00.002-07:00'
+author: Mark Evans
+tags:
+- postgres
+- code
+modified_time: '2012-04-30T12:02:35.906-07:00'
+blogger_id: tag:blogger.com,1999:blog-8042776731714569314.post-5811055465642935268
+blogger_orig_url: http://codexpython.blogspot.com/2012/04/convert-postgres-column-from-text-to.html
+---
+
+ALTER TABLE foo ALTER COLUMN col TYPE NUMERIC USING col::numeric<br /><br />You can use this with data in the table. &nbsp;All data must be convertable (no alpha chars). You can also specify numeric formatting here if you like.

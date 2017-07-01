@@ -1,0 +1,14 @@
+---
+layout: post
+title: Matching limited elements using Postgres IN clause
+date: '2012-05-02T11:08:00.000-07:00'
+author: Mark Evans
+tags:
+- postgres
+- bioinformatics
+modified_time: '2012-05-02T11:08:30.567-07:00'
+blogger_id: tag:blogger.com,1999:blog-8042776731714569314.post-2110880108026933902
+blogger_orig_url: http://codexpython.blogspot.com/2012/05/matching-limited-elements-using.html
+---
+
+So you have two tables, one a sequence table holds unique sequence ids. &nbsp;The other table hold sequence mutations and has a 1 to many relationship with the sequence table. &nbsp;So for a given sequence id in the mutation table, there are many records, one for each mutation.<br /><br />Now you have two sets of mutations you are interested in, a primary set A and a secondary set B. &nbsp;You want to know how many sequences contain 1 and only 1 mutation from set A and 1 and only 1 from set B. <br /><br /><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>select count(*) from (</b></span><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>SELECT distinct a.seq_id</b></span><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>FROM sequence a</b></span><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>JOIN seq_mutations b ON b.seq_id = a.seq_id</b></span><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>JOIN seq_mutations c ON c.seq_id = a.seq_id</b></span><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>WHERE b.mutation IN ('mutA','mutB','mutC')</b></span><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>AND c.mutation IN ('mut1', 'mut2', 'mut3', 'mut4', 'mut5')</b></span><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>GROUP BY a.seq_id</b></span><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>HAVING&nbsp;</b></span><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>&nbsp; count(distinct b.mutation) = 1&nbsp;</b></span><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>&nbsp; AND count(distinct c.mutation) = 1) a</b></span><br /><br />This query gives you exact, fine control over the conditions you want to test for. &nbsp;If you then want to test for 1 and only 1 mutation in set A and 2 and only 2 mutations in set B, just change<br /><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>count(distinct c.mutation) = 2</b></span><br /><br />in the HAVING clause. &nbsp;This also lets you use &gt; and &lt;, so you can ask for 3 or more mutations by using<br /><br /><span style="font-family: 'Courier New', Courier, monospace;"><b>count(distinct c.mutation) &gt;= 3</b></span><br /><br />You can also vary the count for b.mutation to adjust the number of mutations allowed from set A, so any combination can now be extracted.<br /><br />Thanks to Jake for the code help.<br />
