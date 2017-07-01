@@ -212,7 +212,7 @@ DEPENDENCIES
   commonmarker
   github-linguist
   github-pages
-  jekyll-theme-modernist
+  jekyll-theme-leap-day
   rb-pygments
 
 BUNDLED WITH
