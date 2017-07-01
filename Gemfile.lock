@@ -211,6 +211,7 @@ DEPENDENCIES
   commonmarker
   github-linguist
   github-pages
+  jekyll-theme-modernist
 
 BUNDLED WITH
    1.15.1
