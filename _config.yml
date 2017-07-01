@@ -6,7 +6,7 @@ github: [metadata]
    - jekyll-coffeescript
    - jekyll-paginate
    
-name: cod(ex).python
+name: "cod(ex).python"
 markdown: kramdown
 theme: jekyll-theme-modernist
 
