@@ -16,6 +16,12 @@
   <body>
 
       <header>
+        <h1>{{ site.title | default: site.github.repository_name }}</h1>
+        <p>{{ site.description | default: site.github.project_tagline }}</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"><a href="{{ site.github.repository_url }}" class="button fork"></span>
         <nav>
 	  <ul>
 	     <li><a href="/">Home</a></li>
@@ -23,15 +29,8 @@
 	     <li><a href="/cv">CV</a></li>
 	     <li><a href="/blog">Blog</a></li>
 	  </ul>
-     </nav>
-        <h1>{{ site.title | default: site.github.repository_name }}</h1>
-        <p>{{ site.description | default: site.github.project_tagline }}</p>
-      </header>
-
-      <div id="banner">
-        <span id="logo"></span>
-
-        <a href="{{ site.github.repository_url }}" class="button fork"><strong>View On GitHub</strong></a>
+        </nav>
+        <!-- <a href="{{ site.github.repository_url }}" class="button fork"><strong>View On GitHub</strong></a> -->
         {% if site.show_downloads %}
           <div class="downloads">
             <span>Downloads:</span>
