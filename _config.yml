@@ -1,4 +1,12 @@
-name: Hank Quinlan, Horrible Cop
+github: [metadata]
+ kramdown:
+   input: GFM
+   hard_wrap: false
+ gems:
+   - jekyll-coffeescript
+   - jekyll-paginate
+   
+name: cod(ex).python
 markdown: kramdown
 theme: jekyll-theme-modernist
 
